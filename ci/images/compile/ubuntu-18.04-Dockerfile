@@ -82,7 +82,7 @@ RUN wget https://github.com/gflags/gflags/archive/v2.2.1.tar.gz -O gflags-2.2.1.
 # install leveldb
 RUN wget https://github.com/google/leveldb/archive/refs/tags/v1.20.zip \
     && unzip v1.20.zip && mv leveldb-1.20 leveldb \
-    && cd leveldb && git checkout v1.20 && CFLAGS="-fPIC" CXXFLAGS="-fPIC" make -j4 \
+    && cd leveldb && CFLAGS="-fPIC" CXXFLAGS="-fPIC" make -j4 \
     && cp -r ./include/leveldb/ /usr/local/include/ \
     && cp ./out-shared/libleveldb.so.1.20 /usr/local/lib/ \
     && cp ./out-static/libleveldb.a /usr/local/lib/ \
@@ -138,7 +138,7 @@ RUN wget https://github.com/microsoft/cpprestsdk/archive/refs/tags/v2.10.18.zip 
     && wget https://github.com/zaphoyd/websocketpp/archive/56123c87598f8b1dd471be83ca841ceae07f95ba.zip \
     && unzip 56123c87598f8b1dd471be83ca841ceae07f95ba.zip && rm -rf websocketpp && mv websocketpp-56123c87598f8b1dd471be83ca841ceae07f95ba websocketpp \
     && cd .. && mkdir build && cd build \
-    && cmake $CMAKE_OPT -DCMAKE_CXX_FLAGS=-Wno-error=unused-parameter -DBoost_USE_STATIC_LIBS=1 .. && make -j && make install \
+    && cmake $CMAKE_OPT -DCMAKE_CXX_FLAGS=-fPIC -Wno-error=unused-parameter -DBoost_USE_STATIC_LIBS=1 .. && make -j && make install \
     && rm -rf /cpprestsdk*  
 
 # googletest
